@@ -5,3 +5,65 @@ html {
 body {
 
 }
+
+h1 {
+  font-size: 42pt;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid #f0c;
+}
+
+footer, footer > div {
+  border-top: 1px solid #f9c;
+  margin-top: 20px;
+}
+
+header, article, footer {
+  width: 960px;
+  margin: 0 auto;
+}
+
+footer > nav {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 240px;
+}
+
+footer > nav:not(:first-child) {
+  margin-left: 5px;
+}
+
+footer > nav > h4 {
+  border-bottom: 1px solid #fbe;
+}
+
+footer > nav > ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer > nav > ul > li {
+  list-style: none;
+}
+
+footer > nav > ul > li > a {
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  color: #09d;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer > nav > ul > li > a:hover {
+  color: #fff;
+  background-color: #09d;
+  border-radius: 4px;
+}
+
+footer > nav > ul > li > a:active {
+  color: #000;
+}
+
+#footer-information {
+  color: #999;
+}
