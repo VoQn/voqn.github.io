@@ -311,6 +311,14 @@ pre.sample-code {
   margin-right: 2px;
 }
 
+#fork-me-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  z-index: 3;
+}
+
 #test-count {
   width: 3em;
   text-align: right;
