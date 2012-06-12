@@ -222,12 +222,7 @@ var Result = function(stub) {
             }, generate;
         }
     }), new Combinator;
-}(), quadratic = function(a, _b, _c) {
-    var b = _b || 1, c = _c || 0;
-    return function(x, r) {
-        return a * Math.pow(x, 2) + b * x + c;
-    };
-}, GenerateRefference = function() {
+}(), GenerateRefference = function() {
     var GenerateRefference = function() {}, method, C = Combinator;
     return charInt = function() {
         var g = C.frequency([ [ 400, C.choose(65, 122) ], [ 300, C.choose(48, 57) ], [ 150, C.choose(31, 47) ], [ 140, C.choose(123, 127) ], [ 7, C.choose(128, 55295) ], [ 2, C.choose(57344, 65533) ], [ 1, C.choose(65536, 1114111) ] ]);
@@ -254,21 +249,40 @@ var Result = function(stub) {
             return str;
         }
     }, method.number = method.decimal, createSingleton(GenerateRefference, method), new GenerateRefference;
-}(), Generator = function(gs) {
-    return this.generators = gs, this;
+}(), arbitrary = function() {
+    var args = Array.prototype.slice.call(arguments, 0, arguments.length);
+    return new arbitrary.fn.init(args);
 };
 
-Generator.prototype.property = function(property) {
-    return forAll(this.generators, property);
-};
+arbitrary.fn = arbitrary.prototype = function() {
+    var rList = /\[\s+([a-z]+)\s+\]/, selectGenerator = function(t) {
+        var test = rList.exec(t);
+        return test ? Combinator.elements(GenerateRefference[test[1]]) : GenerateRefference[t];
+    };
+    return {
+        constructor: arbitrary,
+        init: function(types) {
+            return this.length = types.length, this.types = types, this;
+        },
+        types: [],
+        length: 0,
+        size: function() {
+            return this.length;
+        },
+        property: function(property) {
+            var generators = [], i = 0, ts = this.types, l = ts.length;
+            for (; i < l; i++) try {
+                var generator = selectGenerator(ts[i]);
+                generators[i] = generator;
+            } catch (e) {
+                console && console.log && console.log(e);
+            }
+            return forAll(generators, property);
+        }
+    };
+}(), arbitrary.fn.init.prototype = arbitrary.fn;
 
-var arbitrary = function() {
-    var types, prepare, instance;
-    return types = Array.prototype.slice.call(arguments, 0, arguments.length), prepare = function(t) {
-        var test = /\[\s+([a-z]+)\s+\]/.exec(t);
-        return test ? elements(Generator[test[1]]) : GenerateRefference[t];
-    }, instance = new Generator(map(prepare, types)), instance;
-}, Checker = function() {
+var Checker = function() {
     var Checker = function() {}, args = [], passed = !1, skipped = !1, marks = {
         skipped: "\u2662",
         passed: "\u2713",
