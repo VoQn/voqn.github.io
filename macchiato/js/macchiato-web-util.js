@@ -121,7 +121,7 @@ var initTestConstroller = function( identifiers ){
   }
 
   add_event( verbose_controller, 'click', function( evt ){
-     Macchiato.setVerbose( evt.target.checked );
+     macchiato.setVerbose( evt.target.checked );
      return eventEnd();
   });
 
@@ -133,26 +133,8 @@ var initTestConstroller = function( identifiers ){
   }
 
   add_event( runner, 'click', function( evt ){
-    Macchiato.taste();
+    macchiato.taste();
     return eventEnd();
   });
 };
 
-/** Not Use
-var easing = function( time, from, distance, duration ){
-  return distance * time / duration + from;
-};
-
-var smoothScroll = function( distance, duration ){
-  var begin = new Date() - 0, from = 0, id, time;
-  id = setInterval(function(){
-    time = new Date() - begin;
-    current = easing( time, from, distance, duration );
-    if ( time > duration ){
-      clearInterval( id );
-      current = from + distance;
-    }
-    window.scrollBy( 0, current );
-  }, 10);
-};
-**/
