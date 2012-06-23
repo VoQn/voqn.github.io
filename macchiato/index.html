@@ -39,6 +39,8 @@
       <ul>
         <li><a href="#top">Top</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#usage">Usage</a></li>
         <li><a href="http://github.com/VoQn/Macchiato">Repository</a></li>
       </ul>
      </nav>
@@ -51,19 +53,31 @@
        <img id="fork-me-ribbon" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub">
     </a>
     <article>
+    <section>
     <div class="caution">
       <h2>CAUTION</h2>
       <p>This project is under development now.<br>Sorry to keep you waiting.</p>
       <p>Please see <a href="https://github.com/VoQn/macchiato/issues/milestones">GitHub Milestones</a></p>
     </div>
-    <section id="about">
-      <h2>What's "Macchiato"? What's "QDD"?</h2>
-      <p><i>Macchiato</i> is a testing framework for JavaScript, inspired by <i>QuickCheck</i>, a similar library for <i>Haskell</i> programs.</p>
-      <p><!-- Under writing --></p>
     </section>
-    <h2>Example</h2>
-    <div>
-        <pre class="sample-code"><code data-language="javascript">macchiato.stock({
+    <section id="about">
+      <div>
+        <h2>What's "Macchiato.js" ?</h2>
+        <h3>Inspired by QuickCheck</h3>
+        <p><i>Macchiato</i> is a testing framework for JavaScript, inspired by <a href="http://hackage.haskell.org/package/QuickCheck-2.4.2">QuickCheck</a>, a similar library for <a href="http://www.haskell.org/">Haskell</a> programs.</p>
+        <blockquote>
+          <p>QuickCheck is a library for random testing of program properties.</p>
+          <p>The programmer provides a specification of the program, in the form of properties which functions should satisfy, and QuickCheck then tests that the properties hold in a large number of randomly generated cases.</p>
+          <p>Specifications are expressed in Haskell, using combinators defined in the QuickCheck library. QuickCheck provides combinators to define properties, observe the distribution of test data, and define test data generators.</p>
+        </blockquote>
+        <p><em>from <a href="http://hackage.haskell.org/package/QuickCheck-2.4.2">QuickCheck module description</a></em></p>
+      </div>
+    </section>
+    <section id="demo">
+      <div>
+        <h2>Demo</h2>
+        <div>
+          <pre class="sample-code"><code data-language="javascript">macchiato.stock({
   'number x, y =&gt; x + y == y + x':
     arbitrary( 'number', 'number' ).property( function( x, y ){
         return x + y === y + x;
@@ -82,8 +96,8 @@
         });
   })
 });</code></pre>
-    </div>
-    <form id="test-control">
+        </div>
+      <form id="test-control">
       <div>
         <label class="input-with-label">
           <input id ="test-count" type="text" value="100" onkeyDown="return numOnly()">tests
@@ -95,9 +109,55 @@
         <p class="test-result"><span id="test-message" class="message">Let's Try!</span></p>
       </div>
     </form>
-    <div id="logger" class="console">
-      <p id="test-log" class='log-line'></p>
+      <div id="logger" class="console">
+        <p id="test-log" class='log-line'><!-- dump test log --></p>
+      </div>
     </div>
+    </section>
+      <section id="usage">
+        <div>
+          <h2>Usage</h2>
+          <h3>Register Test Suites</h3>
+            <p><code class="inline" data-language="javascript">macchiato.stock( labeled_properties )</code></p>
+            <pre class="sample-code"><code data-language="javascript">macchiato.stock({ // stock test properties as object
+    'number x, y =&gt; x + y === y + x' : // &lt;label&gt;:&lt;callback&gt;
+        arbitrary( 'number', 'number' ).property( function( x, y ){
+            return x + y === y + x, // boolean
+        })
+    });</code></pre>
+          <h3>Run Test Suites</h3>
+            <p><code class="inline" data-language="javascript">macchiato.taste()</code></p>
+            <pre class="sample-code"><code data-language="javascript">macchiato.taste(); // check all stocked test suites</code></pre>
+            <p>in default, macchiato.js generate 100 pattern arguments per test-property.</p>
+          <h3>See sample Generator works</h3>
+            <p><code class="inline" data-language="javascript">arbitrary( type ).sample( [ opt_count ] )</code></p>
+            <pre class="sample-code"><code data-language="javascript">arbitrary( 'boolean' ).sample() // [ true, false, false, true, true ]
+arbitrary( 'boolean' ).sample( 5 ); // [ false, false, true, false, true ]
+
+// in default, return array has 10 elements
+arbitrary( 'integer' ).sample(); // [ 0, 1, 1, 0, -1, 6, 6, -12, -2, 16 ]</code></pre>
+          <h3>Use adhoc new type generator</h3>
+            <p><code class="inline" data-language="javascript">arbitrary( type ).fmap( modifier )</code></p>
+            <pre class="sample-code"><code data-language="javascript">// Non Negative Integer Generator
+var nonNegativeNumberProperty = arbitrary( 'integer' ).fmap( Math.abs ).property( function( x ){
+  return x &gt; -1;
+});</code></pre>
+          <h3>Register User generator</h3>
+            <p><code class="inline" data-language="javascript">arbitrary( new_type ).recipe( generator )</code></p>
+            <pre class="sample-code"><code data-language="javascript">arbitrary.( 'hoge' ).recipe(
+    combinator.elements( [ 'hoge', 'huga', 'piyo', 'foo', 'bar', 'baz' ] )
+
+arbitrary.sample(); // "foo", "bar", "bar", "hoge", "piyo", "baz", "hoge", "foo", "huga", "foo"
+);</code></pre>
+            <p><code class="inline" data-language="javascript">arbitrary( type ).fmap( modifier ).recipeAs( new_type )</code></p>
+            <pre class="sample-code"><code data-language="javascript">arbitrary( 'integer' ).fmap( function( n ){
+    var x = Math.max( Math.abs( n ), 1 );
+    return tuple( x, x % 15 ? x % 5 ? x % 3 ? '' + x : 'Fizz' : 'Buzz' : 'FizzBuzz' );
+}).recipeAs( 'fizzbuzz' );
+
+arbitrary( 'fizzbuzz' ).sample(); // (1,"1"),  (2,"2"), (1,"1"), (2,"2"), (3,"Fizz"), (4,"4"), (5,"Buzz"), (15,"FizzBuzz"), (7,"7"), (27,"Fizz")</code></pre>
+        </div>
+      </section>
     </article>
     <footer>
       <div id="footer-high">

@@ -4,7 +4,7 @@ h1, header nav h4 {
   font-weight: lighter;
 }
 
-h1 > small, h2, h3, h4, header nav a, p, .caution, #test-control {
+h1 > small, h2, h3, h4, blockquote, header nav a, p, .caution, #test-control {
   font-family: 'Artifika', serif;
   font-weight: normal;
 }
@@ -34,7 +34,7 @@ body {
   background-repeat: no-repeat;
 }
 
-header, article, footer > div {
+header, article > section > div, footer > div {
   max-width: 960px;
   margin: 0 auto;
 }
@@ -69,7 +69,7 @@ hgroup {
   box-shadow: 0 1px rgba( 51, 0, 0, 0.5 ), 0 2px #fff;
 }
 
-hgroup > h3, h2 {
+h3 {
   font-size: 20pt;
 }
 
@@ -84,11 +84,21 @@ hgroup > h3:before, hgroup > h3:after {
 }
 
 h2 {
+  font-size: 42pt;
   margin: 16pt 0 9pt;
 }
 
 code {
   font-family: Consolas, Monaco, monospace;
+}
+
+blockquote {
+  font-style: italic;
+  line-height: 1.6em;
+  color: #999;
+  margin-left: 0;
+  padding-left: 40px;
+  border-left: 5px solid #ccc;
 }
 
 header {
@@ -219,7 +229,7 @@ input[type=button]:active {
 .caution > h2:before {
   content: '⚠';
   display: inline-block;
-  font-size: 20pt;
+  font-size: 42pt;
   margin: 0pt 5pt;
 }
 
@@ -297,6 +307,15 @@ input[type=button]:active {
   color: #f33;
 }
 
+code.inline {
+  display: inline-block;
+  font-weight: bold;
+  padding: 2px 10px 2px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #eee;
+}
+
 pre.sample-code, div.console {
   font-family: monospace;
 }
@@ -317,6 +336,51 @@ pre.sample-code {
   right: 0;
   border: 0;
   z-index: 3;
+}
+
+#about {
+  margin: 20px 0;
+  background-color: #fff;
+}
+
+#about > div {
+  padding: 10px 0 10px 0;
+}
+
+#about h2, #about h3 {
+  color: #000;
+}
+
+#usage {
+  background-color: #653;
+  color: #320;
+}
+
+#usage > div {
+  padding: 20px 0 20px 0;
+  margin-top: 20px;
+}
+
+#usage h2, #usage h3 {
+  color: #fec;
+}
+
+#usage h2 {
+  font-size: 42pt;
+}
+
+#usage h3 {
+  font-size: 20pt;
+}
+
+#usage h3:not(:first-child) {
+  margin-top: 40px;
+}
+
+#usage code.inline {
+  background-color: #431;
+  border-color: #000;
+  color: #fec;
 }
 
 #test-count {
