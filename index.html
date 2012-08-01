@@ -1,48 +1,35 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>voqn.github.com</title>
-    <meta name="keyword" content="VoQn,github Pages">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <header>
-      <h1>voqn.github.com</h1>
-    </header>
-    <article>
-      <p>Under construction...</p>
-    </article>
-    <footer>
-      <nav>
-        <h4>Projects</h4>
-        <ul>
-          <li><a href="http://github.com/VoQn/ZeroFixFramework">VoQn/ZeroFixFramework</a></li>
-          <li><a href="http://voqn.github.com/macchiato">VoQn/Macchiato</a></li>
-          <li><a href="http://rosylilly.github.com/QueenCheck">rosylilly/QueenCheck</a></li>
-          <li><a href="http://github.com/yaakaito/NLTQuickCheck">yaakaito/NLTQuickCheck</a></li>
-        </ul>
-      </nav>
-      <nav>
-        <h4>Slide/Blog/Articles</h4>
-        <ul>
-          <li><a href="http://www.slideshare.net/VoQn/">SlideShare</a></li>
-          <li><a href="http://voqn.blogspot.com">Blog</a></li>
-          <li><a href="http://qiita.com/users/VoQn">Qiita - Coding Tips</a></li>
-          <li><a href="http://gist.github.com/VoQn">Gist - Code snippets</a></li>
-        </ul>
-      </nav>
-      <nav>
-        <h4>Social Network</h4>
-        <ul>
-          <li><a href="http://twitter.com/VoQn">Twitter</a></li>
-          <li><a href="http://voqn.tumblr.com">Tumblr</a></li>
-          <li><a href="http://facebook.com/VoQn.km">Facebook</a></li>
-        </ul>
-      </nav>
-      <div id="footer-information">
-        <p><small>&copy; VoQn. All rights reserved.</small></p>
-      </div>
-    </footer>
-  </body>
-</html>
+---
+layout: default
+title: voqn.github.com
+---
+<article>
+  <script id="repositories-template" type="text/handlebars">
+    {{"{{#each data"}}}}
+    <dt class="repositories">{{"{{{link name href=html_url"}}}}}</dt>
+    <dd>
+      <p class="main-language" lang={{"{{language"}}}}>{{"{{language"}}}}</p>
+      <p class="description">{{"{{description"}}}}</p>
+    </dd>
+    {{"{{/each"}}}}
+  </script>
+  <script id="tweets-template" type="text/handlebars">
+    {{"{{#each this"}}}}
+      <li class="tweets">
+        <h4 class="created_at">{{"{{{link created_at href=permlink"}}}}}</h4>
+        <p>{{"{{tweet_entry text"}}}}</p>
+      </li>
+    {{"{{/each"}}}}
+  </script>
+  <div>
+    <h3><a href="//github.com/VoQn">Repositories</a></h3>
+    <dl id="repositories"></dl>
+  </div>
+  <div>
+    <h3><a href="//twitter.com/VoQn">Recently Tweet</a></h3>
+    <ul id="tweets"></ul>
+  </div>
+  <div>
+    <h3><a class="feed-link" href="//github.com/VoQn.atom">Github Activity</a></h3>
+    <ul id="github-activity"></ul>
+  </div>
+</article>
