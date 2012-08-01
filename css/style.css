@@ -1,25 +1,29 @@
 /* Mixins */
 /* Style */
-.main-header {
-  font: 200 42pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
-  padding: 0;
-}
-.sub-header {
-  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
-  padding: 0;
-  color: #fbe;
-}
-.body-text {
-  font: 200 11pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
-  padding: 0;
-}
+.main-header,
+.sub-header,
+.body-text,
 .small-text {
   font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
+}
+.main-header {
+  font-size: 42pt;
+}
+@media only screen and (max-device-width: 480px), only screen and (max-width: 480px) {
+  .main-header {
+    font-size: 35pt;
+  }
+}
+.sub-header {
+  font-size: 20pt;
+}
+.body-text {
+  font-size: 11pt;
+}
+.small-text {
+  color: #666;
 }
 .hr-main {
   border-bottom: 1px solid #ff00cc;
@@ -31,60 +35,73 @@
   border-bottom: 1px solid #ffbbee;
 }
 a {
+  -moz-transition: background-color 0.2s linear;
   -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2 linear;
+  -ms-transition: background-color 0.2 linear;
+  transition: background-color 0.2 linear;
   color: #0099dd;
   text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-a.inline-box {
   display: inline-block;
   padding: 5px 10px 5px 10px;
   background-color: transparent;
   border-radius: 4px;
 }
-a.inline-box:hover {
+a:before {
+  content: "\21f1";
+  display: inline-block;
+  margin-top: -0.7ex;
+  margin-right: 5px;
+}
+a:hover {
   color: white;
-  text-decoration: none;
   background-color: #0099dd;
 }
-a.inline-box:active {
+a:active {
   color: black;
 }
-body {
+html {
   font: 200 11pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
 }
-h1 {
-  font: 200 42pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+body {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0;
   padding: 0;
+  font-size: 11pt;
+}
+h1 {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0;
+  padding: 0;
+  font-size: 42pt;
   margin: 0;
   margin-top: 40px;
 }
+@media only screen and (max-device-width: 480px), only screen and (max-width: 480px) {
+  h1 {
+    font-size: 35pt;
+  }
+}
 h2,
 h3 {
-  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0;
   padding: 0;
-  color: #fbe;
+  font-size: 20pt;
 }
 h4 {
   font: 200 16pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
 }
 h3 {
+  font-size: 28pt;
   border-bottom: 1px solid #ff00cc;
 }
 h3 a:before {
-  content: "\21f1";
-  font-size: 24pt;
-  display: inline-block;
-  margin-top: -7px;
-  margin-right: 5px;
+  font-size: 32pt;
 }
 footer,
 #footer-information {
@@ -93,41 +110,42 @@ footer,
 header,
 article,
 footer {
-  padding: 0 20px;
-  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  padding-left: 100px;
+  padding-right: 40px;
+  margin: 0 auto;
+  width: 100%;
 }
-@media only screen and (min-width: 980px) {
+@media only screen and (min-device-width: 961px), only screen and (min-width: 961px) {
   header,
   article,
   footer {
-    max-width: 940px;
-    margin: 0 auto;
+    padding-left: 60px;
   }
 }
-footer nav {
-  margin-top: 20px;
-  min-width: 290px;
-  display: inline-block;
-  vertical-align: top;
-}
-footer nav:not(:last-child) {
-  margin-right: 30px;
-}
-@media only screen and (max-width: 660px) {
-  footer nav {
-    display: block;
+@media only screen and (min-device-width: 641px) and (max-device-width: 960px), only screen and (min-width: 641px) and (max-width: 960px) {
+  header,
+  article,
+  footer {
+    padding-left: 30px;
+    padding-right: 30px;
   }
-  footer nav:not(:last-child) {
-    margin-right: 0;
-    margin-bottom: 40px;
+}
+@media only screen and (max-device-width: 640px), only screen and (max-width: 640px) {
+  header,
+  article,
+  footer {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 footer nav h4 {
   border-bottom: 1px solid #ff00cc;
-  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0;
   padding: 0;
-  color: #fbe;
+  font-size: 20pt;
 }
 ul {
   margin: 0;
@@ -137,50 +155,76 @@ ul li {
   list-style: none;
   margin-bottom: 5px;
 }
+.flexible-multi-column {
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+}
+@media only screen and (min-device-width: 961px), only screen and (min-width: 961px) {
+  .flexible-multi-column {
+    width: 31%;
+  }
+  .flexible-multi-column:nth-child(3n - 2) {
+    margin-right: 2%;
+  }
+  .flexible-multi-column:nth-child(3n - 1) {
+    margin: 0 1%;
+  }
+  .flexible-multi-column:nth-child(3n) {
+    margin-left: 2%;
+  }
+}
+@media only screen and (min-device-width: 641px) and (max-device-width: 960px), only screen and (min-width: 641px) and (max-width: 960px) {
+  .flexible-multi-column {
+    width: 47%;
+  }
+  .flexible-multi-column:nth-child(2n) {
+    margin-right: 1%;
+  }
+  .flexible-multi-column:nth-child(2n - 1) {
+    margin-left: 1%;
+  }
+}
+@media only screen and (max-device-width: 640px), only screen and (max-width: 640px) {
+  .flexible-multi-column {
+    width: 100%;
+    display: block;
+  }
+  .flexible-multi-column:not(:last-child) {
+    margin-bottom: 40px;
+  }
+}
 article {
   margin-top: 40px;
   margin-bottom: 40px;
 }
-article  > div {
-  max-width: 290px;
-  min-width: 260px;
-  display: inline-block;
-  vertical-align: top;
-}
-article  > div:not(:last-child) {
-  margin-right: 30px;
-}
-@media only screen and (max-width: 980px) {
-  article  > div {
-    max-width: 100%;
-    min-width: 280px;
-    display: block;
-  }
-  article  > div:not(:last-child) {
-    margin-right: 0;
-    margin-bottom: 40px;
-  }
-}
 small {
   font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
+  color: #666;
 }
 #repositories dt {
+  padding: 0 5px;
   margin-bottom: 2px;
 }
 #repositories dt:not(:first-child) {
   padding-top: 10px;
-  border-top: 1px solid #ffddee;
+  border-top: 1px solid #ffbbee;
 }
 #repositories dt a {
-  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
-  padding: 0;
+  font-size: 20pt;
+  margin-left: -5px;
+}
+#repositories dt a:before {
+  font-size: 20pt;
 }
 #repositories dd {
   margin-left: 0;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 5px;
   min-height: 4.4em;
 }
 #repositories dd:not(:last-child) {
@@ -188,8 +232,9 @@ small {
 }
 #repositories dd .main-language {
   font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
+  color: #666;
   margin: 0.5ex 0;
 }
 #repositories dd .main-language[lang="Shell"] {
@@ -225,9 +270,7 @@ small {
   border-left: 5px solid #aa4411;
 }
 .tweets {
-  font: 200 14pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
-  padding: 0;
+  font-size: 14pt;
   padding: 0 10px;
 }
 .tweets:first-child {
@@ -235,12 +278,11 @@ small {
 }
 .tweets:not(:last-child) {
   margin-bottom: 20px;
-  border-bottom: 1px solid #ffddee;
+  border-bottom: 1px solid #ffbbee;
 }
 .tweets .created_at {
-  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
-  padding: 0;
+  font-size: 9pt;
+  margin-left: -10px;
 }
 .tweets p {
   margin: 0;
@@ -263,21 +305,31 @@ small {
   padding-bottom: 5px;
 }
 .commits tr:not(:last-child) {
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #dddddd;
 }
 .activity {
+  padding-top: 10px;
+}
+.activity:not(:last-child) {
   border-bottom: 1px solid #ffbbee;
+  padding-bottom: 20px;
+}
+.activity h4 {
+  font-size: 11pt;
+  font-weight: bold;
 }
 .activity  > div {
   font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
-  color: #999;
+  color: #666;
+  color: #666;
 }
 .activity  > div h5 {
-  font: 200 11pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0;
   padding: 0;
+  font-size: 11pt;
 }
 #footer-links {
   border-bottom: 1px solid #ff99cc;
@@ -285,7 +337,8 @@ small {
 }
 #footer-information {
   font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
-  margin: 0.5ex 0 1ex 0;
+  margin: 0;
   padding: 0;
+  color: #666;
   color: #999;
 }

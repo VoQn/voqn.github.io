@@ -102,7 +102,7 @@ $ () ->
       header += " #{ref_link} at #{repo_link}"
       more_info_link = simple_link "#{repo_url}/compare/#{ref}",
         "jump github page",
-        "\u21F1 Compare #{ref} #{ref_type} with master"
+        "Compare #{ref} #{ref_type} with master"
       body = "<p>New #{ref_type} is #{ref_link}</p><p>#{more_info_link}</p>"
     else
       header += " #{repo_link}"
