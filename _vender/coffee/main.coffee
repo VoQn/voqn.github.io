@@ -201,50 +201,56 @@ $ () ->
   github_api_render_callback = (activity) ->
     $("#github-activity").html hb "{{#each data}}{{github_act this}}{{/each}}", activity
 
-  $.ajax
-    type: "GET"
-    url: github_api.user_events
-    cache: no
-    dataType: "jsonp"
-  .done (response) ->
-   data = response.data.slice 0, 15
-   response.data = data
-   github_api_response_render response, github_api_render_callback
+  setTimeout (() ->
+    $.ajax
+      type: "GET"
+      url: github_api.user_events
+      cache: no
+      dataType: "jsonp"
+    .done (response) ->
+      data = response.data.slice 0, 15
+      response.data = data
+      github_api_response_render response, github_api_render_callback
+  ), 1
 
   twitter_api_url = "//api.twitter.com/1/statuses/user_timeline.json"
   request_tweet_count = 10
 
   if $("#repositories").length
-    $("#repositories").handlebars
-      template: "#repositories-template"
-      url: github_api.repos
+    setTimeout (() ->
+      $("#repositories").handlebars
+        template: "#repositories-template"
+        url: github_api.repos
+    ), 1
 
   if $("#tweets").length
-    $("#tweets").handlebars
-      template: "#tweets-template"
-      url: twitter_api_url
-      queries:
-        screen_name: my_user_name
-        count: request_tweet_count
-      modify: (data) ->
-        for entry in data
-          modified = entry
-          date_template = Handlebars.compile "{{date this}}"
-          modified.created_at = date_template entry.created_at
+    setTimeout (() ->
+      $("#tweets").handlebars
+        template: "#tweets-template"
+        url: twitter_api_url
+        queries:
+          screen_name: my_user_name
+          count: request_tweet_count
+        modify: (data) ->
+          for entry in data
+            modified = entry
+            date_template = Handlebars.compile "{{date this}}"
+            modified.created_at = date_template entry.created_at
 
-          modified.permlink = "//twitter.com/#{my_user_name}/status/#{entry.id_str}"
+            modified.permlink = "//twitter.com/#{my_user_name}/status/#{entry.id_str}"
 
-          modified.text = entry.text
-            .replace(
-              /http(s)?:(\/\/)([-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/gi,
-              "<a href=\"\/\/$3\">$3</a>"
-            ).replace(
-              /\@([_a-zA-Z0-9]+)/gi,
-              "<a href=\"//twitter.com/$1/status/#{entry.in_reply_to_status_id_str}\">@$1</a>"
-            ).replace(
-              /#([_a-zA-Z0-9]+)/gi,
-              "<a href=\"//twitter.com/search/%23$1\">#$1</a>"
-            )
-          modified
+            modified.text = entry.text
+              .replace(
+                /http(s)?:(\/\/)([-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/gi,
+                "<a href=\"\/\/$3\">$3</a>"
+              ).replace(
+                /\@([_a-zA-Z0-9]+)/gi,
+                "<a href=\"//twitter.com/$1/status/#{entry.in_reply_to_status_id_str}\">@$1</a>"
+              ).replace(
+                /#([_a-zA-Z0-9]+)/gi,
+                "<a href=\"//twitter.com/search/%23$1\">#$1</a>"
+              )
+            modified
+    ), 1
 
   return
