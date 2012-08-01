@@ -1,69 +1,291 @@
-html {
-
+/* Mixins */
+/* Style */
+.main-header {
+  font: 200 42pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
 }
-
+.sub-header {
+  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  color: #fbe;
+}
+.body-text {
+  font: 200 11pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+.small-text {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+.hr-main {
+  border-bottom: 1px solid #ff00cc;
+}
+.hr-section {
+  border-bottom: 1px solid #ff99cc;
+}
+.hr-sub {
+  border-bottom: 1px solid #ffbbee;
+}
+a {
+  -webkit-transition: background-color 0.2s linear;
+  color: #0099dd;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a.inline-box {
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  background-color: transparent;
+  border-radius: 4px;
+}
+a.inline-box:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #0099dd;
+}
+a.inline-box:active {
+  color: black;
+}
 body {
-
+  font: 200 11pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
 }
-
 h1 {
-  font-size: 42pt;
-  margin-top: 0;
-  margin-bottom: 0;
-  border-bottom: 1px solid #f0c;
+  font: 200 42pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  margin: 0;
+  margin-top: 40px;
 }
-
-footer, footer > div {
-  border-top: 1px solid #f9c;
+h2,
+h3 {
+  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  color: #fbe;
+}
+h4 {
+  font: 200 16pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+h3 {
+  border-bottom: 1px solid #ff00cc;
+}
+h3 a:before {
+  content: "\21f1";
+  font-size: 24pt;
+  display: inline-block;
+  margin-top: -7px;
+  margin-right: 5px;
+}
+footer,
+#footer-information {
   margin-top: 20px;
 }
-
-header, article, footer {
-  width: 960px;
-  margin: 0 auto;
+header,
+article,
+footer {
+  padding: 0 20px;
+  margin: 0;
 }
-
-footer > nav {
+@media only screen and (min-width: 980px) {
+  header,
+  article,
+  footer {
+    max-width: 940px;
+    margin: 0 auto;
+  }
+}
+footer nav {
+  margin-top: 20px;
+  min-width: 290px;
   display: inline-block;
   vertical-align: top;
-  min-width: 240px;
 }
-
-footer > nav:not(:first-child) {
-  margin-left: 5px;
+footer nav:not(:last-child) {
+  margin-right: 30px;
 }
-
-footer > nav > h4 {
-  border-bottom: 1px solid #fbe;
+@media only screen and (max-width: 660px) {
+  footer nav {
+    display: block;
+  }
+  footer nav:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
 }
-
-footer > nav > ul {
+footer nav h4 {
+  border-bottom: 1px solid #ff00cc;
+  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  color: #fbe;
+}
+ul {
   margin: 0;
   padding: 0;
 }
-
-footer > nav > ul > li {
+ul li {
   list-style: none;
+  margin-bottom: 5px;
 }
-
-footer > nav > ul > li > a {
+article {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+article  > div {
+  max-width: 290px;
+  min-width: 260px;
   display: inline-block;
-  padding: 5px 10px 5px 10px;
-  color: #09d;
-  text-decoration: none;
-  font-weight: bold;
+  vertical-align: top;
 }
-
-footer > nav > ul > li > a:hover {
-  color: #fff;
-  background-color: #09d;
-  border-radius: 4px;
+article  > div:not(:last-child) {
+  margin-right: 30px;
 }
-
-footer > nav > ul > li > a:active {
-  color: #000;
+@media only screen and (max-width: 980px) {
+  article  > div {
+    max-width: 100%;
+    min-width: 280px;
+    display: block;
+  }
+  article  > div:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
 }
-
+small {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+#repositories dt {
+  margin-bottom: 2px;
+}
+#repositories dt:not(:first-child) {
+  padding-top: 10px;
+  border-top: 1px solid #ffddee;
+}
+#repositories dt a {
+  font: 200 20pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+#repositories dd {
+  margin-left: 0;
+  padding-right: 10px;
+  min-height: 4.4em;
+}
+#repositories dd:not(:last-child) {
+  margin-bottom: 10px;
+}
+#repositories dd .main-language {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  margin: 0.5ex 0;
+}
+#repositories dd .main-language[lang="Shell"] {
+  display: inline-block;
+  color: white;
+  background: #666666;
+  padding: 0.5ex 1.5ex 0.5ex 0.5ex;
+  border-radius: 5px;
+  border-left: 5px solid #444444;
+}
+#repositories dd .main-language[lang="Scheme"] {
+  display: inline-block;
+  color: white;
+  background: #cc3366;
+  padding: 0.5ex 1.5ex 0.5ex 0.5ex;
+  border-radius: 5px;
+  border-left: 5px solid #aa1144;
+}
+#repositories dd .main-language[lang="JavaScript"] {
+  display: inline-block;
+  color: white;
+  background: #33cc99;
+  padding: 0.5ex 1.5ex 0.5ex 0.5ex;
+  border-radius: 5px;
+  border-left: 5px solid #11aa77;
+}
+#repositories dd .main-language[lang="Java"] {
+  display: inline-block;
+  color: white;
+  background: #cc6633;
+  padding: 0.5ex 1.5ex 0.5ex 0.5ex;
+  border-radius: 5px;
+  border-left: 5px solid #aa4411;
+}
+.tweets {
+  font: 200 14pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  padding: 0 10px;
+}
+.tweets:first-child {
+  margin-top: 24px;
+}
+.tweets:not(:last-child) {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ffddee;
+}
+.tweets .created_at {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+.tweets p {
+  margin: 0;
+  margin-bottom: 2ex;
+}
+.data-key {
+  width: 10ex;
+  padding-right: 2ex;
+  font-family: 'Courier', monospace;
+}
+.commits {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+.commits tr td {
+  text-align: left;
+  min-height: 2.5em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.commits tr:not(:last-child) {
+  border-bottom: 1px solid #eeeeee;
+}
+.activity {
+  border-bottom: 1px solid #ffbbee;
+}
+.activity  > div {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+  color: #999;
+}
+.activity  > div h5 {
+  font: 200 11pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+#footer-links {
+  border-bottom: 1px solid #ff99cc;
+  padding-bottom: 20px;
+}
 #footer-information {
+  font: 200 9pt 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
   color: #999;
 }

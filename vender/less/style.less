@@ -1,0 +1,297 @@
+
+/* Mixins */
+.text (@size) {
+  font: 200 @size 'Segoe UI Light', Helvetica, monospace;
+  margin: 0.5ex 0 1ex 0;
+  padding: 0;
+}
+
+.thin-border (@color) {
+  border: 1px solid @color
+}
+.thin-border (@color, @dimention) when (@dimention = top) {
+  border-top: 1px solid @color
+}
+.thin-border (@color, @dimention) when (@dimention = bottom) {
+  border-bottom: 1px solid @color
+}
+.thin-border (@color, @dimention) when (@dimention = left) {
+  border-left: 1px solid @color
+}
+.thin-border (@color, @dimention) when (@dimention = right) {
+  border-right: 1px solid @color
+}
+
+
+.transition (@property) {
+  -webkit-transition: @property 0.2s linear;
+}
+
+/* Style */
+.main-header { .text(42pt); }
+.sub-header { .text(20pt); color: #fbe; }
+.body-text { .text(11pt); }
+.small-text { .text(9pt);  }
+
+
+.hr-main {
+  .thin-border(#f0c, bottom);
+}
+
+.hr-section {
+  .thin-border(#f9c, bottom);
+}
+
+.hr-sub {
+  .thin-border(#fbe, bottom);
+}
+
+@link-color: #09d;
+
+a {
+  .transition(background-color);
+  color: @link-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.inline-box {
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    background-color: transparent;
+    border-radius: 4px;
+
+    &:hover {
+      color: white;
+      text-decoration: none;
+      background-color: @link-color;
+    }
+    &:active {
+      color: black;
+    }
+  }
+}
+
+html {
+
+}
+
+body {
+  .body-text;
+}
+
+h1 {
+  .main-header;
+  margin: 0;
+  margin-top: 40px;
+}
+
+h2, h3 {
+  .sub-header;
+}
+
+h4 {
+  .text(16pt);
+}
+
+h3 {
+  .hr-main;
+  a:before {
+    content: "\21f1";
+    font-size: 24pt;
+    display: inline-block;
+    margin-top: -7px;
+    margin-right: 5px;
+  }
+}
+
+footer, #footer-information {
+  margin-top: 20px;
+}
+
+header, article, footer {
+  padding: 0 20px;
+  margin: 0;
+  @media only screen and (min-width : 980px) {
+    max-width: 940px;
+    margin: 0 auto;
+  }
+}
+
+footer {
+  nav {
+    margin-top: 20px;
+    min-width: 290px;
+    display: inline-block;
+    vertical-align: top;
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    @media only screen and (max-width: 660px) {
+      display: block;
+      &:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 40px;
+      }
+    }
+
+    h4 {
+      .hr-main;
+      .sub-header;
+    }
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+   list-style: none;
+   margin-bottom: 5px; 
+  }
+}
+
+article {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  & > div {
+    max-width: 290px;
+    min-width: 260px;
+    display: inline-block;
+    vertical-align: top;
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    @media only screen and (max-width : 980px) {
+      max-width: 100%;
+      min-width: 280px;
+      display: block;
+      &:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+small {
+  .small-text;
+}
+
+.tag(@lang-color) {
+  display: inline-block;
+  color: white;
+  background: @lang-color;
+  padding: 0.5ex 1.5ex 0.5ex 0.5ex;
+  border-radius: 5px;
+  border-left: 5px solid @lang-color - #222;
+}
+
+#repositories {
+  dt {
+    margin-bottom: 2px;
+    &:not(:first-child) {
+      padding-top: 10px;
+      .thin-border(#fde, top);
+    }
+
+    a {
+      .text(20pt);
+    }
+  }
+
+  dd {
+    margin-left: 0;
+    padding-right: 10px;
+    min-height: 4.4em;
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    .main-language {
+      .small-text;
+      margin: 0.5ex 0;
+      &[lang="Shell"] {
+        .tag(#666);
+      }
+      &[lang="Scheme"] {
+        .tag(#c36);
+      }
+      &[lang="JavaScript"] {
+        .tag(#3c9);
+      }
+      &[lang="Java"] {
+        .tag(#c63);
+      }
+    }
+  }
+}
+
+.tweets {
+  .text(14pt);
+  padding: 0 10px;
+
+  &:first-child {
+    margin-top: 24px;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+    .thin-border(#fde, bottom)
+  }
+
+  .created_at {
+    .text(9pt);
+  }
+  p {
+    margin: 0;
+    margin-bottom: 2ex;
+  }
+}
+
+.data-key {
+  width: 10ex;
+  padding-right: 2ex;
+  font-family: 'Courier', monospace;
+}
+
+.commits {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  tr {
+    td {
+      text-align: left;
+      min-height: 2.5em;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    &:not(:last-child) {
+      .thin-border(#eee, bottom);
+    }
+  }
+}
+
+.activity {
+  .hr-sub;
+  & > div {
+    .small-text;
+    color: #999;
+    h5 {
+      .body-text;
+    }
+  }
+}
+
+#footer-links {
+  .hr-section;
+  padding-bottom: 20px;
+}
+
+#footer-information {
+  .small-text;
+  color: #999;
+}
