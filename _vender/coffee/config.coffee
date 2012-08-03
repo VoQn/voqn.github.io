@@ -67,3 +67,6 @@ footer.data.push
 @static_data_set =
   footer: footer
 
+@nextProc = (f, args...) ->
+  setTimeout.apply undefined, [f, 1].concat args
+

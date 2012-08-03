@@ -37,5 +37,13 @@ helpers =
   tweet_entry: (post, options) ->
     new Handlebars.SafeString post
 
+  sha1_limit: (sha1, options) ->
+    lim = options.limit or 7
+    sha1.substring 0, lim
+
+  github_act: (activity, options) ->
+    expr = "<li class=\"activity\">#{activity.header}#{activity.body}</li>"
+    new Handlebars.SafeString expr
+
 for name, func of helpers
   Handlebars.registerHelper name, func

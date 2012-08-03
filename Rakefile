@@ -1,4 +1,4 @@
-task :default => :generate
+task :default => :preview
 
 desc 'Launch preview jekyll'
 task :preview => [:assets, :quickrun]
@@ -22,8 +22,10 @@ script_deps = {
   ],
   'coffee' => [
     'handlebars-helper',
+    'jquery-handlebars',
     'config',
-    'main'
+    'main',
+    'handlebars-github-activity'
   ]
 }
 
@@ -38,18 +40,28 @@ task :make_script do
   sh "cat #{js_files.join ' '} > #{temp_dir}/lib.js"
   sh "cat #{coffee_files.join ' '} > #{temp_dir}/user_script.coffee"
   sh "coffee -b -c #{temp_dir}/user_script.coffee"
-  sh "cat #{temp_dir}/lib.js #{temp_dir}/user_script.js > #{script_dir}/script.js"
-  sh "uglifyjs -nc -o #{script_dir}/script.min.js #{script_dir}/script.js"
+  sh "cat #{temp_dir}/lib.js #{temp_dir}/user_script.js > #{temp_dir}/script.js"
+  sh "uglifyjs -nc -o #{script_dir}/script.min.js #{temp_dir}/script.js"
+end
+
+desc 'Compile and Compress LessCSS'
+task :make_stylesheet do
+  sh "lessc #{vender_dir}/less/style.less > #{temp_dir}/style.css"
+  sh "uglifycss #{temp_dir}/style.css > ./css/style.css"
+end
+
+desc 'Clean temporary directory'
+task :clean do
+  sh "rm -rf #{temp_dir}"
+end
+
+desc 'Prepare temporary directory'
+task :prepare do
+  sh "mkdir #{temp_dir}"
 end
 
 desc 'Compile and distination *.coffee & *.less'
-task :assets do
-  sh "rm -rf #{temp_dir}"
-  sh "mkdir #{temp_dir}"
-
-  Rake::Task['make_script'].invoke
-  sh "lessc #{vender_dir}/less/style.less > ./css/style.css"
-end
+task :assets => [:clean, :prepare, :make_script, :make_stylesheet]
 
 desc 'Launch preview jekyll server'
 task :quickrun do

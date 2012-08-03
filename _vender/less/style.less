@@ -22,7 +22,6 @@
   border-right: 1px solid @color
 }
 
-
 .transition (@property) {
   -moz-transition: @property 0.2s linear;
   -webkit-transition: @property 0.2s linear;
@@ -35,6 +34,7 @@
 .main-header, .sub-header, .body-text, .small-text {
   .text(9pt);
 }
+
 .main-header { font-size:42pt;
   @media
    only screen and (max-device-width : 480px),
@@ -110,8 +110,11 @@ h4 {
 h3 {
   font-size: 28pt;
   .hr-main;
-  a:before {
-    font-size: 32pt;
+  a {
+    margin-bottom: 5px;
+    &:before {
+      font-size: 32pt;
+    }
   }
 }
 
@@ -148,6 +151,9 @@ header, article, footer {
 
 footer {
   nav {
+    ul {
+      margin-top: 10px;
+    }
     h4 {
       .hr-main;
       .sub-header;
@@ -222,6 +228,14 @@ small {
   padding: 0.5ex 1.5ex 0.5ex 0.5ex;
   border-radius: 5px;
   border-left: 5px solid @lang-color - #222;
+}
+
+.loading {
+  content: url(/img/loading.gif);
+  display: block;
+  width: 66px;
+  height: 66px;
+  margin: 50px auto;
 }
 
 #repositories {
