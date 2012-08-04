@@ -2,6 +2,9 @@
 /* Mixins */
 .text (@size) {
   font: 200 @size 'Segoe UI Light', Helvetica, monospace;
+}
+
+.no-margin-padding {
   margin: 0;
   padding: 0;
 }
@@ -30,36 +33,49 @@
   transition: @property 0.2 linear;
 }
 
+/* Properties */
+@h1-header-size: 42pt;
+@h3-header-size: 28pt;
+@h4-header-size: 16pt;
+@body-text-size: 11pt;
+@small-text-size: 9pt;
+
+@hr-main-color: #f0c;
+@hr-section-color: #f9c;
+@hr-sub-color: #fbe;
+@link-color: #09d;
+
+@link-mark: "\21f1";
+
 /* Style */
 .main-header, .sub-header, .body-text, .small-text {
-  .text(9pt);
+  .text(@small-text-size);
 }
 
-.main-header { font-size:42pt;
+.main-header { font-size: @h1-header-size;
   @media
    only screen and (max-device-width : 480px),
    only screen and (max-width : 480px) {
     font-size: 35pt;
   }
 }
-.sub-header { font-size:20pt; }
-.body-text { font-size:11pt; }
+.sub-header { font-size: @h3-header-size; }
+.body-text { font-size: @body-text-size; }
 .small-text { color: #666;  }
 
 
 .hr-main {
-  .thin-border(#f0c, bottom);
+  .thin-border(@hr-main-color, bottom);
 }
 
 .hr-section {
-  .thin-border(#f9c, bottom);
+  .thin-border(@hr-section-color, bottom);
 }
 
 .hr-sub {
-  .thin-border(#fbe, bottom);
+  .thin-border(@hr-sub-color, bottom);
 }
 
-@link-color: #09d;
 
 a {
   .transition(background-color);
@@ -70,7 +86,8 @@ a {
   background-color: transparent;
   border-radius: 4px;
   &:before {
-    content: "\21f1";
+    content: @link-mark;
+    font-size: 1.25em;
     display: inline-block;
     margin-top: -0.7ex;
     margin-right: 5px;
@@ -85,12 +102,11 @@ a {
 }
 
 html {
- .text(11pt);
- 
+ .text(@body-text-size);
+ .no-margin-padding;
 }
 
 body {
-  .body-text;
 }
 
 h1 {
@@ -104,17 +120,16 @@ h2, h3 {
 }
 
 h4 {
-  .text(16pt);
+  .text(@h4-header-size);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 h3 {
-  font-size: 28pt;
+  font-size: @h3-header-size;
   .hr-main;
   a {
     margin-bottom: 5px;
-    &:before {
-      font-size: 32pt;
-    }
   }
 }
 
@@ -153,17 +168,18 @@ footer {
   nav {
     ul {
       margin-top: 10px;
+      li {
+        font-size: @h4-header-size;
+      }
     }
-    h4 {
+    h3 {
       .hr-main;
-      .sub-header;
     }
   }
 }
 
 ul {
-  margin: 0;
-  padding: 0;
+  .no-margin-padding;
   li {
    list-style: none;
    margin-bottom: 5px; 
@@ -213,7 +229,6 @@ ul {
 }
 
 article {
-  margin-top: 40px;
   margin-bottom: 40px;
 }
 
@@ -244,7 +259,7 @@ small {
     margin-bottom: 2px;
     &:not(:first-child) {
       padding-top: 10px;
-      .thin-border(#fbe, top);
+      .thin-border(@hr-sub-color, top);
     }
 
     a {
@@ -272,20 +287,23 @@ small {
         .tag(#666);
       }
       &[lang="Scheme"] {
+        .tag(#c63);
+      }
+      &[lang="Ruby"] {
         .tag(#c36);
       }
       &[lang="JavaScript"] {
         .tag(#3c9);
       }
       &[lang="Java"] {
-        .tag(#c63);
+        .tag(#c93);
       }
     }
   }
 }
 
 .tweets {
-  font-size: 14pt;
+  font-size: @body-text-size;
   padding: 0 10px;
 
   &:first-child {
@@ -298,8 +316,8 @@ small {
   }
 
   .created_at {
-    font-size: 9pt;
-    margin-left: -10px;
+    font-size: @h4-header-size;
+    margin-left: -0.5ex;
   }
   p {
     margin: 0;
@@ -308,7 +326,7 @@ small {
 }
 
 .data-key {
-  width: 10ex;
+  width: 15ex;
   padding-right: 2ex;
   font-family: 'Courier', monospace;
 }
@@ -320,24 +338,21 @@ small {
   tr {
     td {
       text-align: left;
-      min-height: 2.5em;
-      padding-top: 5px;
-      padding-bottom: 5px;
     }
     &:not(:last-child) {
-      .thin-border(#ddd, bottom);
+      border-bottom: thin dashed #ddd;
     }
   }
 }
 
 .activity {
-  padding-top: 10px;
   &:not(:last-child) {
     .hr-sub;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
   }
+
   h4 {
-    font-size: 11pt;
+    font-size: @body-text-size;
     font-weight: bold;
   }
   & > div {
@@ -346,6 +361,10 @@ small {
     h5 {
       .body-text;
     }
+  }
+  p {
+    padding: 0;
+    margin: 0;
   }
 }
 

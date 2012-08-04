@@ -23,18 +23,49 @@ commits_template =
     <tbody>
       {{#each commits}}
       <tr>
-        <td class="data-key">{{sha1_limit sha}}</td>
+        <td class="data-key"><a href="{{url}}">{{sha}}</a></td>
         <td>{{message}}</td>
       </tr>
       {{/each}}
     </tbody>
   </table>
+  {{#if hasCompareLink}}
+    <p>{{link compareLink.text href=compareLink.url}}</p>
+  {{/if}}
   """
 
-expr_commits = (payload) ->
-  commits = payload.commits.slice()
-  payload.commits = commits.slice 0, 3
-  hb commits_template, payload
+expr_commits = (activity) ->
+  limit = 3
+  # console.log activity
+  payload = activity.payload
+  count = payload.size
+  beforeCommitHash = payload.before
+  lastCommitHash = payload.head
+  comparePath = "#{beforeCommitHash}...#{lastCommitHash}"
+
+  commits = for commit in payload.commits
+    commit.sha = commit.sha.substring 0, 6
+    commit.url = commit.url.replace /https:\/\/api\.github.com\/repos/i, "//github.com"
+    commit
+
+  compareUrl = "//github.com/#{activity.repo.name}/compare/#{comparePath}"
+
+  compareLinkText =
+    if count - limit > 0
+      "#{count - limit} more commits"
+    else if count > 1
+      "view comparision for these #{count} commits"
+    else
+      ""
+
+  commitment =
+    commits: commits.slice 0, limit
+    hasCompareLink: count > 1
+    compareLink:
+      text: compareLinkText
+      url: compareUrl
+
+  hb commits_template, commitment
 
 github_html_link = (repo_name) ->
   simple_link "//github.com/#{repo_name}", repo_name
@@ -44,7 +75,7 @@ parser_by_event = {}
 parser_by_event.push = (act, next) ->
   ref = act.payload.ref.replace /^refs\/heads\//, ""
   header = "Pushed to #{ref} at #{github_html_link act.repo.name}"
-  next make_entry header, expr_commits act.payload
+  next make_entry header, expr_commits act
 
 parser_by_event.create = (act, next) ->
   payload = act.payload
