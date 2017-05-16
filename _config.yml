@@ -5,3 +5,5 @@
 pygments:     true
 #markdown:    maruku
 #permalink:   date
+
+theme: jekyll-theme-cayman
